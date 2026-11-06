@@ -1,0 +1,10 @@
+﻿<a href="{{ route('faculty.dashboard') }}" class="sidebar-item {{ request()->routeIs('faculty.dashboard') ? 'active' : '' }}"><i class="bi bi-speedometer2"></i><span class="item-text">Dashboard</span></a>
+<a href="{{ route('faculty.profile') }}" class="sidebar-item {{ request()->routeIs('faculty.profile') ? 'active' : '' }}"><i class="bi bi-person-circle"></i><span class="item-text">My Profile</span></a>
+<a href="{{ route('faculty.students') }}" class="sidebar-item {{ request()->routeIs('faculty.students') ? 'active' : '' }}"><i class="bi bi-people"></i><span class="item-text">My Students</span></a>
+<a href="{{ route('faculty.attendance.index') }}" class="sidebar-item {{ request()->routeIs('faculty.attendance.*') ? 'active' : '' }}"><i class="bi bi-calendar-check"></i><span class="item-text">Attendance</span></a>
+<a href="{{ route('faculty.results.index') }}" class="sidebar-item {{ request()->routeIs('faculty.results.*') ? 'active' : '' }}"><i class="bi bi-graph-up"></i><span class="item-text">Results</span></a>
+<a href="{{ route('faculty.assignments.index') }}" class="sidebar-item {{ request()->routeIs('faculty.assignments.*') ? 'active' : '' }}"><i class="bi bi-clipboard-check"></i><span class="item-text">Assignments</span></a>
+<a href="{{ route('faculty.materials.index') }}" class="sidebar-item {{ request()->routeIs('faculty.materials.*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i><span class="item-text">Study Materials</span></a>
+<a href="{{ route('faculty.notices') }}" class="sidebar-item {{ request()->routeIs('faculty.notices') ? 'active' : '' }}"><i class="bi bi-megaphone"></i><span class="item-text">Notices</span></a>
+<a href="{{ route('faculty.complaints') }}" class="sidebar-item {{ request()->routeIs('faculty.complaints') ? 'active' : '' }}"><i class="bi bi-chat-left-text"></i><span class="item-text">Complaints</span></a>
+<a href="{{ route('faculty.salary') }}" class="sidebar-item {{ request()->routeIs('faculty.salary') ? 'active' : '' }}"><i class="bi bi-cash-stack"></i><span class="item-text">Salary Info</span></a>

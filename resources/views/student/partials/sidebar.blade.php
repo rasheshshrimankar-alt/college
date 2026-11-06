@@ -1,0 +1,12 @@
+﻿<a href="{{ route('student.dashboard') }}" class="sidebar-item {{ request()->routeIs('student.dashboard') ? 'active' : '' }}"><i class="bi bi-speedometer2"></i><span class="item-text">Dashboard</span></a>
+<a href="{{ route('student.profile') }}" class="sidebar-item {{ request()->routeIs('student.profile') ? 'active' : '' }}"><i class="bi bi-person-circle"></i><span class="item-text">My Profile</span></a>
+<a href="{{ route('student.results.index') }}" class="sidebar-item {{ request()->routeIs('student.results*') ? 'active' : '' }}"><i class="bi bi-graph-up"></i><span class="item-text">My Results</span></a>
+<a href="{{ route('student.attendance.index') }}" class="sidebar-item {{ request()->routeIs('student.attendance*') ? 'active' : '' }}"><i class="bi bi-calendar-check"></i><span class="item-text">Attendance</span></a>
+<a href="{{ route('student.fees.index') }}" class="sidebar-item {{ request()->routeIs('student.fees*') ? 'active' : '' }}"><i class="bi bi-cash-stack"></i><span class="item-text">Fee Details</span></a>
+<a href="{{ route('student.assignments') }}" class="sidebar-item {{ request()->routeIs('student.assignments') ? 'active' : '' }}"><i class="bi bi-clipboard-check"></i><span class="item-text">Assignments</span></a>
+<a href="{{ route('student.materials') }}" class="sidebar-item {{ request()->routeIs('student.materials') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i><span class="item-text">Study Materials</span></a>
+<a href="{{ route('student.notices') }}" class="sidebar-item {{ request()->routeIs('student.notices') ? 'active' : '' }}"><i class="bi bi-megaphone"></i><span class="item-text">Notices</span></a>
+<a href="{{ route('student.library') }}" class="sidebar-item {{ request()->routeIs('student.library') ? 'active' : '' }}"><i class="bi bi-journals"></i><span class="item-text">Library</span></a>
+<a href="{{ route('student.scholarship') }}" class="sidebar-item {{ request()->routeIs('student.scholarship') ? 'active' : '' }}"><i class="bi bi-award"></i><span class="item-text">Scholarships</span></a>
+<a href="{{ route('student.timetable') }}" class="sidebar-item {{ request()->routeIs('student.timetable') ? 'active' : '' }}"><i class="bi bi-clock-history"></i><span class="item-text">Timetable</span></a>
+<a href="{{ route('student.complaints.index') }}" class="sidebar-item {{ request()->routeIs('student.complaints.*') ? 'active' : '' }}"><i class="bi bi-chat-left-text"></i><span class="item-text">Complaints</span></a>
