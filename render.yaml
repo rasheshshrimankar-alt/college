@@ -1,25 +1,48 @@
+databases:
+  - name: college-db
+    databaseName: college
+    user: college_user
+    plan: free
+    postgresMajorVersion: "16"
+
 services:
   - type: web
-    name: smart-campus
-    env: php
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      php artisan config:cache
-      php artisan route:cache
-      php artisan view:cache
-    startCommand: php artisan migrate --force && php artisan db:seed --force && php -S 0.0.0.0:$PORT -t public
+    name: college
+    runtime: docker
+    plan: free
+    branch: render-deployment
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    autoDeploy: true
     envVars:
       - key: APP_NAME
-        value: "SMART CAMPUS"
+        value: "Smart Campus"
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: false
+        value: "false"
       - key: APP_KEY
-        value: base64:9k3jjpx7O+bRkmvaBIOe9ikF7hTFz11h42Tu+WmR+Pk=
+        sync: false
       - key: DB_CONNECTION
-        value: mysql
+        value: pgsql
+      - key: DB_URL
+        fromDatabase:
+          name: college-db
+          property: connectionString
       - key: SESSION_DRIVER
-        value: file
+        value: database
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
       - key: CACHE_STORE
-        value: file
+        value: database
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: MAIL_MAILER
+        value: log
+      - key: LOG_LEVEL
+        value: warning
+      - key: INITIAL_ADMIN_EMAIL
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD
+        sync: false
