@@ -10,7 +10,7 @@ services:
     name: college
     runtime: docker
     plan: free
-    branch: render-deployment
+    branch: main
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /up
