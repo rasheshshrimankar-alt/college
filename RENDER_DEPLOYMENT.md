@@ -5,7 +5,7 @@ This repository is configured for a **free demonstration deployment** using Rend
 ## What the deployment files do
 
 - `Dockerfile`: installs PHP 8.3 extensions and Composer production dependencies, builds Vite assets with Node 22, and serves Laravel's `public/` directory using Apache on port 10000.
-- `render.yaml`: creates a free Render web service and a free PostgreSQL database, then connects them with `DATABASE_URL`.
+- `render.yaml`: creates a free Render web service and a free PostgreSQL database, then connects them with Laravel's `DB_URL` setting.
 - `docker-entrypoint.sh`: waits for PostgreSQL, runs migrations, caches Laravel configuration/views, optionally creates the first admin, then starts Apache.
 - The old MySQL-only Render config and committed application key have been removed from the deployment blueprint.
 
