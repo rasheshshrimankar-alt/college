@@ -24,8 +24,6 @@ services:
         value: "false"
       - key: APP_KEY
         sync: false
-      - key: APP_URL
-        sync: false
       - key: DB_CONNECTION
         value: pgsql
       - key: DATABASE_URL
@@ -33,11 +31,11 @@ services:
           name: college-db
           property: connectionString
       - key: SESSION_DRIVER
-        value: file
+        value: database
       - key: SESSION_SECURE_COOKIE
         value: "true"
       - key: CACHE_STORE
-        value: file
+        value: database
       - key: QUEUE_CONNECTION
         value: sync
       - key: MAIL_MAILER
