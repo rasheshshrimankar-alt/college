@@ -7,7 +7,7 @@ databases:
 
 services:
   - type: web
-    name: college
+    name: college-laravel
     runtime: docker
     plan: free
     branch: main
