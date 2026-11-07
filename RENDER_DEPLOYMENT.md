@@ -16,12 +16,11 @@ This repository is configured for a **free demonstration deployment** using Rend
 3. Choose **New + → Blueprint** and select `rasheshshrimankar-alt/college`.
 4. Select the `render.yaml` Blueprint and create the resources. Choose the Free plan for the web service and database.
 5. When Render asks for unsynced environment values, provide:
-   - `APP_KEY`: generate locally with `php artisan key:generate --show` (copy the complete `base64:...` value).
-   - `APP_URL`: after the service is created, set it to the service URL shown by Render, e.g. `https://college-xxxx.onrender.com`.
+   - `APP_KEY`: generate locally from the project folder with `php artisan key:generate --show` (copy the complete `base64:...` value).
    - `INITIAL_ADMIN_EMAIL`: the email address you want to use for the first admin.
    - `INITIAL_ADMIN_PASSWORD`: a new unique password of at least 12 characters. Do not reuse a personal or school password.
-6. Save the environment variables and trigger/retry the deployment. The container runs migrations and creates the admin account once (it will not reset that account's password on later restarts).
-7. Open the service URL. Test the public home page, login, registration, and role-based dashboards.
+6. Save the environment variables and create the Blueprint. After Render creates the web service, open **Environment** and add `APP_URL` with the HTTPS URL shown on the service page (for example, `https://college-xxxx.onrender.com`). Save and redeploy.
+7. The container runs migrations and creates the admin account once (it will not reset that account's password on later restarts). Open the service URL and test the public home page, login, registration, and role-based dashboards.
 
 ## Important database and data notes
 
