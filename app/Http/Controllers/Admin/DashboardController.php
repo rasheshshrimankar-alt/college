@@ -40,8 +40,13 @@ class DashboardController extends Controller
         $upcomingEvents    = Event::where('status', 'upcoming')
             ->orderBy('start_datetime')->take(4)->get();
 
+        // Use database-specific month extraction: PostgreSQL does not support MySQL's MONTH() function.
+        $monthExpression = DB::connection()->getDriverName() === 'pgsql'
+            ? 'EXTRACT(MONTH FROM payment_date)::integer'
+            : 'MONTH(payment_date)';
+
         $monthlyRevenue    = FeePayment::where('status', 'paid')
-            ->selectRaw('MONTH(payment_date) as month, SUM(amount_paid) as total')
+            ->selectRaw("$monthExpression as month, SUM(amount_paid) as total")
             ->groupBy('month')
             ->orderBy('month')
             ->get();
