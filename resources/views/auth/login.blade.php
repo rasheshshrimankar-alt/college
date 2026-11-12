@@ -25,6 +25,21 @@
     <form method="POST" action="{{ route('login') }}" data-validate>
         @csrf
         <div class="sc-form-group">
+            <label class="sc-label">Course (for students)</label>
+            <div style="position:relative">
+                <i class="bi bi-mortarboard" style="position:absolute;left:.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem"></i>
+                <select name="course_id" class="sc-input" style="padding-left:2.6rem">
+                    <option value="">Select your course (optional for admin/faculty)</option>
+                    @foreach($courses as $course)
+                        <option value="{{ $course->id }}" {{ (string) old('course_id') === (string) $course->id ? 'selected' : '' }}>
+                            {{ $course->name }}{{ $course->code ? ' ('.$course->code.')' : '' }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            @error('course_id')<div class="form-error">{{ $message }}</div>@enderror
+        </div>
+        <div class="sc-form-group">
             <label class="sc-label">Email Address</label>
             <div style="position:relative">
                 <i class="bi bi-envelope" style="position:absolute;left:.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem"></i>
