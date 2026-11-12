@@ -10,12 +10,23 @@
 <p style="color:var(--text-muted);font-size:.95rem;line-height:1.75;margin-bottom:2rem">Start your journey to excellence. Applications for {{ date('Y') }}-{{ substr(date('Y')+1,-2) }} academic year are open. Fill in the form below.</p>
 @if(session('success'))<div class="sc-alert success mb-4"><i class="bi bi-check-circle-fill"></i> {{ session('success') }}</div>@endif
 <div class="dashboard-card"><div class="card-header-sc"><h5><i class="bi bi-person-plus me-2 text-primary-sc"></i>Admission Application</h5></div><div class="card-body-sc">
-<form method="POST" action="{{ route('admission.submit') }}" data-validate>@csrf
+<form method="POST" action="{{ route('admissions.apply') }}" data-validate>@csrf
 <div class="row g-3">
 <div class="col-md-6"><div class="sc-form-group"><label class="sc-label">Full Name *</label><input type="text" name="applicant_name" class="sc-input" required placeholder="Your full name"></div></div>
 <div class="col-md-6"><div class="sc-form-group"><label class="sc-label">Email *</label><input type="email" name="applicant_email" class="sc-input" required placeholder="email@example.com"></div></div>
 <div class="col-md-6"><div class="sc-form-group"><label class="sc-label">Phone *</label><input type="text" name="applicant_phone" class="sc-input" required placeholder="10-digit number"></div></div>
-<div class="col-md-6"><div class="sc-form-group"><label class="sc-label">Course *</label><select name="course_id" class="sc-select" required><option value="">Select Course</option>@foreach($courses as $c)<option value="{{ $c->id }}" {{ request('course')==$c->id?'selected':'' }}>{{ $c->name }}</option>@endforeach</select></div></div>
+<div class="col-md-6"><div class="sc-form-group"><label class="sc-label">Course *</label><select name="course_id" class="sc-select" required>
+<option value="">Choose the course you want to apply for</option>
+@foreach($courses as $c)
+<option value="{{ $c->id }}" {{ (string) old('course_id', request('course')) === (string) $c->id ? 'selected' : '' }}>
+{{ $c->name }}{{ $c->code ? ' ('.$c->code.')' : '' }}{{ $c->department ? ' — '.$c->department->name : '' }}
+</option>
+@endforeach
+</select>
+@error('course_id')<div class="form-error">{{ $message }}</div>@enderror
+@if($courses->isEmpty())
+<div class="form-error">No courses are currently available. Please contact the admissions office.</div>
+@endif</div></div>
 <div class="col-md-6"><div class="sc-form-group"><label class="sc-label">Qualification *</label><select name="previous_qualification" class="sc-select" required><option value="">Select</option><option>10+2 / HSC</option><option>Diploma</option><option>Graduation</option><option>Post-Graduation</option></select></div></div>
 <div class="col-md-6"><div class="sc-form-group"><label class="sc-label">Percentage *</label><input type="number" name="previous_percentage" class="sc-input" min="0" max="100" step="0.01" required placeholder="e.g. 85.5"></div></div>
 <div class="col-md-6"><div class="sc-form-group"><label class="sc-label">Guardian Name</label><input type="text" name="guardian_name" class="sc-input" placeholder="Parent/Guardian name"></div></div>
