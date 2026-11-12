@@ -16,6 +16,10 @@ until php artisan migrate --force; do
     sleep 5
 done
 
+# Ensure the public admission form always has an initial course catalogue.
+echo "Ensuring default departments and courses exist..."
+php artisan db:seed --class=CourseCatalogSeeder --force
+
 if [ -n "${INITIAL_ADMIN_EMAIL:-}" ] || [ -n "${INITIAL_ADMIN_PASSWORD:-}" ]; then
     echo "Creating or confirming the initial administrator account..."
     php artisan db:seed --class=RenderAdminSeeder --force
