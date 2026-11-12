@@ -18,26 +18,19 @@ class RenderAdminSeeder extends Seeder
             throw new RuntimeException('Set a valid INITIAL_ADMIN_EMAIL before creating the Render administrator.');
         }
 
-        if (! $password || strlen($password) < 12) {
-            throw new RuntimeException('Set INITIAL_ADMIN_PASSWORD to a unique password with at least 12 characters.');
+        if (! $password || strlen($password) < 10) {
+            throw new RuntimeException('Set INITIAL_ADMIN_PASSWORD to a password with at least 10 characters.');
         }
 
-        $admin = User::firstOrCreate(
+        $admin = User::updateOrCreate(
             ['email' => $email],
             [
-                'name' => env('INITIAL_ADMIN_NAME', 'College Administrator'),
+                'name' => env('INITIAL_ADMIN_NAME', 'Rashesh'),
                 'phone' => null,
                 'role' => 'admin',
                 'password' => Hash::make($password),
                 'status' => 'active',
             ]
         );
-
-        // Ensure the selected account has administrator access without resetting
-        // its password on subsequent container restarts.
-        $admin->forceFill([
-            'role' => 'admin',
-            'status' => 'active',
-        ])->save();
     }
 }
