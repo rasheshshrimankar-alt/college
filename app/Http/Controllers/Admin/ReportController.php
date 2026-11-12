@@ -23,8 +23,13 @@ class ReportController extends Controller
             'revenue'    => FeePayment::where('status', 'paid')->sum('amount_paid'),
         ];
 
+        // Use database-specific month extraction: PostgreSQL does not support MySQL's MONTH() function.
+        $monthExpression = DB::connection()->getDriverName() === 'pgsql'
+            ? 'EXTRACT(MONTH FROM payment_date)::integer'
+            : 'MONTH(payment_date)';
+
         $monthlyRevenue = FeePayment::where('status', 'paid')
-            ->selectRaw('MONTH(payment_date) as month, SUM(amount_paid) as total')
+            ->selectRaw("$monthExpression as month, SUM(amount_paid) as total")
             ->groupBy('month')
             ->orderBy('month')
             ->get();
