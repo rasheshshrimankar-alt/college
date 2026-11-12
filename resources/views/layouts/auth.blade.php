@@ -6,7 +6,7 @@
 <title>@yield('title','Login') | SMART CAMPUS</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="{{ asset('css/smartcampus.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('css/smartcampus.css') }}">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
 <style>
@@ -69,7 +69,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('js/smartcampus.js') }}"></script>
+<script src="{{ secure_asset('js/smartcampus.js') }}"></script>
 <script>
 gsap.timeline({defaults:{ease:'power3.out'}})
     .from('.auth-logo',{y:30,opacity:0,duration:.6,delay:.2})
