@@ -17,7 +17,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- SMART CAMPUS CSS -->
-    <link rel="stylesheet" href="{{ asset('css/smartcampus.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/smartcampus.css') }}">
     @stack('styles')
 </head>
 <body>
@@ -203,7 +203,7 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
-<script src="{{ asset('js/smartcampus.js') }}"></script>
+<script src="{{ secure_asset('js/smartcampus.js') }}"></script>
 <script>
     // Mobile nav
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
