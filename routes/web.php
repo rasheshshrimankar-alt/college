@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\ResultController as AdminResult;
 use App\Http\Controllers\Admin\AttendanceController as AdminAttendance;
 use App\Http\Controllers\Admin\ReportController as AdminReport;
 use App\Http\Controllers\Admin\SettingController as AdminSetting;
+use App\Http\Controllers\Admin\FormSubmissionController as AdminFormSubmission;
 use App\Http\Controllers\Faculty\DashboardController as FacultyDashboard;
 use App\Http\Controllers\Faculty\AttendanceController as FacultyAttendance;
 use App\Http\Controllers\Faculty\ResultController as FacultyResult;
@@ -73,6 +74,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 // ── Admin ─────────────────────────────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+    Route::get('/form-submissions', [AdminFormSubmission::class, 'index'])->name('form-submissions.index');
+    Route::get('/form-submissions/export', [AdminFormSubmission::class, 'export'])->name('form-submissions.export');
     Route::resource('students', AdminStudent::class);
     Route::resource('faculty', AdminFaculty::class);
     Route::resource('departments', AdminDepartment::class);
