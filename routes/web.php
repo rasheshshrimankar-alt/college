@@ -141,7 +141,7 @@ Route::prefix('faculty')->name('faculty.')->middleware(['auth', 'faculty'])->gro
     Route::post('/assignments', [FacultyAssignment::class, 'store'])->name('assignments.store');
     Route::get('/assignments/{assignment}/edit', [FacultyAssignment::class, 'edit'])->name('assignments.edit');
     Route::patch('/assignments/{assignment}', [FacultyAssignment::class, 'update'])->name('assignments.update');
-    Route::delete('/assignments/{assignment}', [FacultyAssignment::class, 'destroy'])->name('assignments.destroy');
+    Route::delete('/assignments/{assignment}', [FacultyAssignment::class, 'destroy'])->name('assignments.destroy');\n    Route::get('/assignments/{assignment}/submissions', [AssignmentReviewController::class, 'index'])->name('assignments.submissions');\n    Route::patch('/assignments/{assignment}/submissions/{submission}', [AssignmentReviewController::class, 'grade'])->name('assignments.grade');
     Route::get('/materials', [FacultyMaterial::class, 'index'])->name('materials.index');
     Route::get('/materials/create', [FacultyMaterial::class, 'create'])->name('materials.create');
     Route::post('/materials', [FacultyMaterial::class, 'store'])->name('materials.store');
@@ -160,7 +160,7 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'student'])->gro
     Route::get('/complaints/create', [StudentComplaint::class, 'create'])->name('complaints.create');
     Route::post('/complaints', [StudentComplaint::class, 'store'])->name('complaints.store');
     Route::get('/complaints/{complaint}', [StudentComplaint::class, 'show'])->name('complaints.show');
-    Route::get('/assignments', [StudentDashboard::class, 'assignments'])->name('assignments');
+    Route::get('/assignments', [StudentDashboard::class, 'assignments'])->name('assignments');\n    Route::post('/assignments/{assignment}/submit', [AssignmentSubmissionController::class, 'store'])->name('assignments.submit');
     Route::get('/materials', [StudentDashboard::class, 'materials'])->name('materials');
     Route::get('/notices', [StudentDashboard::class, 'notices'])->name('notices');
     Route::get('/library', [StudentDashboard::class, 'library'])->name('library');

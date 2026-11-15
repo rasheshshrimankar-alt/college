@@ -90,7 +90,7 @@ class DashboardController extends Controller
     {
         $student = auth()->user()->student;
         $assignments = Assignment::where('course_id', $student->course_id)
-            ->with('subject', 'faculty.user')
+            ->with(['subject', 'faculty.user', 'submissions' => function ($query) use ($student) { $query->where('student_id', $student->id); }])
             ->orderBy('due_date', 'asc')
             ->paginate(15);
         return view('student.assignments', compact('assignments', 'student'));

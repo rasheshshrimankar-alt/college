@@ -4,7 +4,7 @@
 @section('breadcrumb')<a href="{{ route('student.dashboard') }}">Dashboard</a><i class="bi bi-chevron-right"></i><span>Assignments</span>@endsection
 @section('sidebar')@include('student.partials.sidebar')@endsection
 
-@section('content')
+@section('content')\n@if(session('success'))<div class="sc-alert success mb-3">{{ session('success') }}</div>@endif\n@if($errors->any())<div class="sc-alert danger mb-3">{{ $errors->first() }}</div>@endif
 <div class="page-header animate-fade-down">
     <div><h1 class="page-title">My Assignments</h1><p style="color:var(--text-muted);font-size:.875rem">View and track your assignments</p></div>
 </div>
@@ -12,7 +12,7 @@
 <div class="dashboard-card animate-slide-up">
     <div class="sc-table-wrapper">
         <table class="sc-table">
-            <thead><tr><th>#</th><th>Assignment</th><th>Subject</th><th>Due Date</th><th>Max Marks</th><th>Status</th></tr></thead>
+            <thead><tr><th>#</th><th>Assignment</th><th>Subject</th><th>Due Date</th><th>Max Marks</th><th>Status / Submit</th></tr></thead>
             <tbody>
             @forelse($assignments as $i => $a)
             <tr style="animation:fadeInLeft .4s ease {{ $i*0.05 }}s both">
