@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\CampusAssistantController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -75,7 +76,8 @@ Route::middleware('guest')->group(function () {
     Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
 });
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');\nRoute::post('/campus-assistant/reply', [CampusAssistantController::class, 'reply'])->middleware('auth')->name('campus-assistant.reply');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('/campus-assistant/reply', [CampusAssistantController::class, 'reply'])->middleware('auth')->name('campus-assistant.reply');
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
