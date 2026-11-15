@@ -77,7 +77,7 @@
     <!-- Attendance Chart -->
     <div class="col-lg-4 animate-slide-up anim-delay-2">
         <div class="dashboard-card h-100">
-            <div class="card-header-sc"><h5><i class="bi bi-pie-chart me-2 text-primary-sc"></i>Attendance</h5><a href="{{ route('student.attendance') }}" class="sc-badge badge-primary">View</a></div>
+            <div class="card-header-sc"><h5><i class="bi bi-pie-chart me-2 text-primary-sc"></i>Attendance</h5><a href="{{ route('student.attendance.index') }}" class="sc-badge badge-primary">View</a></div>
             <div class="card-body-sc text-center">
                 <div style="position:relative;height:160px"><canvas id="attendanceChart" data-percentage="{{ $attendancePercent }}"></canvas></div>
                 <div style="margin-top:.75rem">
@@ -121,7 +121,7 @@
     <!-- Recent Results -->
     <div class="col-lg-6 animate-slide-up anim-delay-1">
         <div class="dashboard-card">
-            <div class="card-header-sc"><h5><i class="bi bi-graph-up me-2 text-primary-sc"></i>Recent Results</h5><a href="{{ route('student.results') }}" class="sc-badge badge-primary">View All</a></div>
+            <div class="card-header-sc"><h5><i class="bi bi-graph-up me-2 text-primary-sc"></i>Recent Results</h5><a href="{{ route('student.results.index') }}" class="sc-badge badge-primary">View All</a></div>
             <div class="sc-table-wrapper"><table class="sc-table"><thead><tr><th>Subject</th><th>Marks</th><th>%</th><th>Grade</th></tr></thead><tbody>
             @forelse($recentResults as $r)
             <tr><td style="font-size:.85rem;font-weight:500">{{ Str::limit($r->subject->name ?? '-',28) }}</td><td>{{ $r->marks_obtained }}/{{ $r->total_marks }}</td><td style="font-weight:700;color:{{ $r->percentage>=75?'var(--success)':($r->percentage>=40?'var(--warning)':'var(--danger)') }}">{{ number_format($r->percentage,1) }}%</td><td><span class="sc-badge {{ $r->status=='pass'?'badge-success':'badge-danger' }}">{{ $r->grade ?? ($r->status=='pass'?'P':'F') }}</span></td></tr>
@@ -155,7 +155,7 @@
     <!-- Fee Status -->
     <div class="col-lg-6 animate-slide-up anim-delay-3">
         <div class="dashboard-card">
-            <div class="card-header-sc"><h5><i class="bi bi-cash me-2 text-primary-sc"></i>Fee Status</h5><a href="{{ route('student.fees') }}" class="sc-badge badge-primary">Details</a></div>
+            <div class="card-header-sc"><h5><i class="bi bi-cash me-2 text-primary-sc"></i>Fee Status</h5><a href="{{ route('student.fees.index') }}" class="sc-badge badge-primary">Details</a></div>
             <div class="card-body-sc">
                 @if($student->fees_due > 0)
                 <div class="sc-alert danger mb-3"><i class="bi bi-exclamation-triangle-fill"></i> <strong>Fee Due:</strong> â‚¹{{ number_format($student->fees_due) }} pending payment</div>
