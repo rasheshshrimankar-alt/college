@@ -12,17 +12,7 @@
     <div class="sc-alert danger mb-3 animate-fade-down"><i class="bi bi-x-circle-fill"></i> {{ session('error') }}</div>
     @endif
 
-    <!-- Demo Credentials -->
-    <div style="background:var(--gradient-1);border-radius:12px;padding:1rem;margin-bottom:1.5rem">
-        <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.75);margin-bottom:.6rem">🔑 Demo Credentials</div>
-        <div class="d-flex flex-wrap gap-2">
-            <button onclick="fillLogin('admin@smartcampus.edu','password')" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:white;padding:.3rem .75rem;border-radius:6px;font-size:.72rem;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.3)'" onmouseout="this.style.background='rgba(255,255,255,.2)'"><i class="bi bi-shield-lock me-1"></i>Admin</button>
-            <button onclick="fillLogin('faculty1@smartcampus.edu','password')" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:white;padding:.3rem .75rem;border-radius:6px;font-size:.72rem;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.3)'" onmouseout="this.style.background='rgba(255,255,255,.2)'"><i class="bi bi-person-badge me-1"></i>Faculty</button>
-            <button onclick="fillLogin('student1@smartcampus.edu','password')" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:white;padding:.3rem .75rem;border-radius:6px;font-size:.72rem;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.3)'" onmouseout="this.style.background='rgba(255,255,255,.2)'"><i class="bi bi-mortarboard me-1"></i>Student</button>
-        </div>
-    </div>
-
-    <form method="POST" action="{{ route('login') }}" data-validate>
+    <form method="POST" action="{{ route('login.submit') }}" data-validate>
         @csrf
         <div class="sc-form-group">
             <label class="sc-label">Course (for students)</label>
@@ -81,7 +71,6 @@
 @endsection
 @push('scripts')
 <script>
-function fillLogin(e,p){ document.getElementById('email').value=e; document.getElementById('password').value=p; }
 function togglePwd(){
     const inp=document.getElementById('password');
     const ic=document.getElementById('eyeIcon');
