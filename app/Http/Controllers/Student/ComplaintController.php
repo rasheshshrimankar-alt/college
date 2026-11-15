@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
+use App\Models\FormSubmission;
 use Illuminate\Http\Request;
 
 class ComplaintController extends Controller
@@ -36,6 +37,15 @@ class ComplaintController extends Controller
             'category'    => $request->category,
             'priority'    => $request->priority,
             'status'      => 'open',
+        ]);
+
+        FormSubmission::create([
+            'form_type' => 'Student Complaint',
+            'user_id' => auth()->id(),
+            'name' => auth()->user()->name,
+            'email' => auth()->user()->email,
+            'phone' => auth()->user()->phone,
+            'payload' => $request->only(['subject', 'description', 'category', 'priority']),
         ]);
 
         return redirect()->route('student.complaints.index')
