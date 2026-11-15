@@ -10,7 +10,9 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {\n        // Trust Render's reverse proxy so Laravel detects the original HTTPS request.\n        $middleware->trustProxies(at: '*');
+    ->withMiddleware(function (Middleware $middleware): void {
+        // Trust Render's reverse proxy so Laravel detects the original HTTPS request.
+        $middleware->trustProxies(at: '*');
         $middleware->alias([
             'admin'   => \App\Http\Middleware\AdminMiddleware::class,
             'faculty' => \App\Http\Middleware\FacultyMiddleware::class,
