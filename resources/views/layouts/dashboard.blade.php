@@ -114,41 +114,30 @@
                 <div style="position:relative">
                     <button class="nav-action-btn border-0 notification-bell" id="notifBell" style="background:var(--bg)">
                         <i class="bi bi-bell"></i>
-                        <span class="notification-badge">3</span>
+                        @php $unreadNotifications = auth()->user()->unreadNotifications()->latest()->take(6)->get(); @endphp
+                        @if($unreadNotifications->count())<span class="notification-badge">{{ $unreadNotifications->count() }}</span>@endif
                     </button>
                     <div class="notif-dropdown" id="notifDropdown">
                         <div style="padding:.875rem 1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
                             <strong style="font-size:.875rem">Notifications</strong>
-                            <span class="sc-badge badge-primary">3 New</span>
+                            <span class="sc-badge badge-primary">{{ $unreadNotifications->count() }} unread</span>
                         </div>
                         <div style="max-height:300px;overflow-y:auto">
-                            <div class="notification-item unread">
-                                <div class="notification-icon" style="background:rgba(49,87,213,.1);color:var(--primary)"><i class="bi bi-info-circle"></i></div>
-                                <div class="notification-text flex-1">
-                                    <h6>New Admission Application</h6>
-                                    <p>A new admission request has been received.</p>
-                                </div>
-                                <small class="notification-time">2m ago</small>
-                            </div>
-                            <div class="notification-item unread">
-                                <div class="notification-icon" style="background:rgba(34,197,94,.1);color:var(--success)"><i class="bi bi-cash"></i></div>
-                                <div class="notification-text flex-1">
-                                    <h6>Fee Payment Received</h6>
-                                    <p>₹45,000 fee payment confirmed.</p>
-                                </div>
-                                <small class="notification-time">1h ago</small>
-                            </div>
-                            <div class="notification-item">
-                                <div class="notification-icon" style="background:rgba(245,158,11,.1);color:var(--warning)"><i class="bi bi-exclamation-triangle"></i></div>
-                                <div class="notification-text flex-1">
-                                    <h6>Exam Schedule Updated</h6>
-                                    <p>Mid-semester exam dates have been revised.</p>
-                                </div>
-                                <small class="notification-time">3h ago</small>
-                            </div>
+                            @forelse(auth()->user()->notifications()->latest()->take(6)->get() as $notification)
+                                <a href="{{ $notification->data['url'] ?? '#' }}" style="text-decoration:none;color:inherit" class="notification-item {{ $notification->read_at ? '' : 'unread' }}">
+                                    <div class="notification-icon" style="background:rgba(49,87,213,.1);color:var(--primary)"><i class="bi bi-bell"></i></div>
+                                    <div class="notification-text flex-1">
+                                        <h6>{{ $notification->data['title'] ?? 'Notification' }}</h6>
+                                        <p>{{ $notification->data['message'] ?? '' }}</p>
+                                    </div>
+                                    <small class="notification-time">{{ $notification->created_at?->diffForHumans() }}</small>
+                                </a>
+                            @empty
+                                <div class="p-3 text-center" style="font-size:.82rem;color:var(--text-muted)">You are all caught up.</div>
+                            @endforelse
                         </div>
                         <div style="padding:.75rem 1rem;text-align:center;border-top:1px solid var(--border)">
-                            <a href="#" style="font-size:.8rem;color:var(--primary);font-weight:600">View All Notifications</a>
+                            <span style="font-size:.8rem;color:var(--text-muted)">Latest account notifications</span>
                         </div>
                     </div>
                 </div>

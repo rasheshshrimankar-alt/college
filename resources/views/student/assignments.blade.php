@@ -38,8 +38,6 @@
                     @endphp
                     @if($submitted)
                         <span class="sc-badge badge-success">{{ $submitted->status === 'graded' ? 'Graded: '.number_format((float)$submitted->marks_obtained, 1) : 'Submitted' }}</span>
-                    @elseif(now()->gt($a->due_date))
-                        <span class="sc-badge badge-danger">Overdue</span>
                     @else
                         <form method="POST" action="{{ route('student.assignments.submit', $a) }}" enctype="multipart/form-data" class="d-flex flex-column gap-1" style="min-width:170px">
                             @csrf
