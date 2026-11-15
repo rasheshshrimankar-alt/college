@@ -37,6 +37,9 @@ use App\Http\Controllers\Student\ResultController as StudentResult;
 use App\Http\Controllers\Student\ComplaintController as StudentComplaint;
 use App\Http\Controllers\Student\FeeController as StudentFee;
 
+use App\Http\Controllers\Student\AssignmentSubmissionController;
+use App\Http\Controllers\Faculty\AssignmentReviewController;
+
 // ── Public ──────────────────────────────────────────────────────────────────
 Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/about', [PublicController::class, 'about'])->name('about');

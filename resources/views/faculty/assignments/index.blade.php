@@ -31,7 +31,8 @@
                 <td><span class="sc-badge {{ $a->status=='active'?'badge-success':'badge-secondary' }}">{{ ucfirst($a->status) }}</span></td>
                 <td>
                     <div class="d-flex gap-1">
-                        <a href="{{ route('faculty.assignments.submissions', $a) }}" class="table-action-btn view" title="Review submissions"><i class="bi bi-inbox"></i></a>\n                        <a href="{{ route('faculty.assignments.edit', $a) }}" class="table-action-btn edit"><i class="bi bi-pencil"></i></a>
+                        <a href="{{ route('faculty.assignments.submissions', $a) }}" class="table-action-btn view" title="Review submissions"><i class="bi bi-inbox"></i></a>\n                        <a href="{{ route('faculty.assignments.submissions', $a) }}" class="table-action-btn view" title="Review submissions"><i class="bi bi-inbox"></i></a>
+                        <a href="{{ route('faculty.assignments.edit', $a) }}" class="table-action-btn edit"><i class="bi bi-pencil"></i></a>
                         <form method="POST" action="{{ route('faculty.assignments.destroy', $a) }}" style="display:inline">
                             @csrf @method('DELETE')
                             <button class="table-action-btn delete" data-confirm="Delete this assignment?"><i class="bi bi-trash"></i></button>

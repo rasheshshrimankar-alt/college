@@ -4,7 +4,9 @@
 @section('breadcrumb')<a href="{{ route('student.dashboard') }}">Dashboard</a><i class="bi bi-chevron-right"></i><span>Assignments</span>@endsection
 @section('sidebar')@include('student.partials.sidebar')@endsection
 
-@section('content')\n@if(session('success'))<div class="sc-alert success mb-3">{{ session('success') }}</div>@endif\n@if($errors->any())<div class="sc-alert danger mb-3">{{ $errors->first() }}</div>@endif
+@section('content')
+@if(session('success'))<div class="sc-alert success mb-3">{{ session('success') }}</div>@endif
+@if($errors->any())<div class="sc-alert danger mb-3">{{ $errors->first() }}</div>@endif
 <div class="page-header animate-fade-down">
     <div><h1 class="page-title">My Assignments</h1><p style="color:var(--text-muted);font-size:.875rem">View and track your assignments</p></div>
 </div>
@@ -35,11 +37,16 @@
                     $submitted = $a->submissions ? $a->submissions->where('student_id', $student->id ?? 0)->first() : null;
                     @endphp
                     @if($submitted)
-                        <span class="sc-badge badge-success">Submitted</span>
+                        <span class="sc-badge badge-success">{{ $submitted->status === 'graded' ? 'Graded: '.number_format((float)$submitted->marks_obtained, 1) : 'Submitted' }}</span>
                     @elseif(now()->gt($a->due_date))
                         <span class="sc-badge badge-danger">Overdue</span>
                     @else
-                        <span class="sc-badge badge-warning">Pending</span>
+                        <form method="POST" action="{{ route('student.assignments.submit', $a) }}" enctype="multipart/form-data" class="d-flex flex-column gap-1" style="min-width:170px">
+                            @csrf
+                            <input type="file" name="submission_file" class="form-control form-control-sm" accept=".pdf,.doc,.docx,.zip,.jpg,.png" required aria-label="Assignment file">
+                            <input type="text" name="remarks" class="form-control form-control-sm" placeholder="Optional note" maxlength="1000">
+                            <button type="submit" class="btn-primary-sc btn-sm-sc" style="justify-content:center"><i class="bi bi-upload me-1"></i>Submit</button>
+                        </form>
                     @endif
                 </td>
             </tr>
