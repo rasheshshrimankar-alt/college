@@ -41,6 +41,7 @@ use App\Http\Controllers\Student\FeeController as StudentFee;
 use App\Http\Controllers\Student\AssignmentSubmissionController;
 use App\Http\Controllers\Student\DigitalIdController;
 use App\Http\Controllers\Faculty\AssignmentReviewController;
+use App\Http\Controllers\Faculty\QrAttendanceController;
 
 Route::get('/verify-student/{publicId}', [DigitalIdController::class, 'verify'])->middleware('signed')->name('student.id.verify');
 
@@ -140,6 +141,7 @@ Route::prefix('faculty')->name('faculty.')->middleware(['auth', 'faculty'])->gro
     Route::get('/attendance/take', [FacultyAttendance::class, 'markForm'])->name('attendance.take');
     Route::get('/attendance/mark', [FacultyAttendance::class, 'markForm'])->name('attendance.mark');
     Route::post('/attendance/mark', [FacultyAttendance::class, 'markStore'])->name('attendance.mark.store');
+    Route::post('/attendance/qr-session', [QrAttendanceController::class, 'create'])->name('attendance.qr-session');
     Route::get('/attendance/report', [FacultyAttendance::class, 'report'])->name('attendance.report');
     Route::get('/results', [FacultyResult::class, 'index'])->name('results.index');
     Route::get('/results/create', [FacultyResult::class, 'create'])->name('results.create');
@@ -166,6 +168,7 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'student'])->gro
     Route::patch('/profile', [StudentDashboard::class, 'updateProfile'])->name('profile.update');
     Route::get('/results', [StudentResult::class, 'index'])->name('results.index');
     Route::get('/attendance', [StudentAttendance::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/scan/{token}', [QrAttendanceController::class, 'scan'])->name('attendance.scan');
     Route::get('/fees', [StudentFee::class, 'index'])->name('fees.index');
     Route::get('/complaints', [StudentComplaint::class, 'index'])->name('complaints.index');
     Route::get('/complaints/create', [StudentComplaint::class, 'create'])->name('complaints.create');

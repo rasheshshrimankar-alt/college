@@ -16,6 +16,14 @@
             </select></div>
         </div>
     </form>
+    @if($subjectId)
+    <form method="POST" action="{{ route('faculty.attendance.qr-session') }}" class="mt-3">
+        @csrf
+        <input type="hidden" name="subject_id" value="{{ $subjectId }}">
+        <button type="submit" class="btn-primary-sc btn-sm-sc"><i class="bi bi-qr-code me-1"></i>Start 10-minute QR attendance</button>
+        <span class="small text-muted ms-2">Students scan this code while signed in.</span>
+    </form>
+    @endif
 </div></div>
 
 @if($students->count())
