@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Student extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'course_id', 'department_id', 'student_id', 'roll_number',
+        'user_id', 'course_id', 'department_id', 'student_id', 'public_id', 'roll_number',
         'current_semester', 'current_year', 'batch_year', 'phone', 'address',
         'date_of_birth', 'gender', 'guardian_name', 'guardian_phone',
         'guardian_relation', 'profile_photo', 'blood_group', 'category',
@@ -22,6 +23,13 @@ class Student extends Model
         'fees_paid'     => 'decimal:2',
         'fees_due'      => 'decimal:2',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (Student $student): void {
+            $student->public_id ??= (string) Str::uuid();
+        });
+    }
 
     public function user()         { return $this->belongsTo(User::class); }
     public function course()       { return $this->belongsTo(Course::class); }

@@ -38,7 +38,10 @@ use App\Http\Controllers\Student\ComplaintController as StudentComplaint;
 use App\Http\Controllers\Student\FeeController as StudentFee;
 
 use App\Http\Controllers\Student\AssignmentSubmissionController;
+use App\Http\Controllers\Student\DigitalIdController;
 use App\Http\Controllers\Faculty\AssignmentReviewController;
+
+Route::get('/verify-student/{publicId}', [DigitalIdController::class, 'verify'])->middleware('signed')->name('student.id.verify');
 
 // ── Public ──────────────────────────────────────────────────────────────────
 Route::get('/', [PublicController::class, 'home'])->name('home');
@@ -157,6 +160,7 @@ Route::prefix('faculty')->name('faculty.')->middleware(['auth', 'faculty'])->gro
 Route::prefix('student')->name('student.')->middleware(['auth', 'student'])->group(function () {
     Route::get('/dashboard', [StudentDashboard::class, 'index'])->name('dashboard');
     Route::get('/profile', [StudentDashboard::class, 'profile'])->name('profile');
+    Route::get('/id-card', [DigitalIdController::class, 'show'])->name('id-card');
     Route::patch('/profile', [StudentDashboard::class, 'updateProfile'])->name('profile.update');
     Route::get('/results', [StudentResult::class, 'index'])->name('results.index');
     Route::get('/attendance', [StudentAttendance::class, 'index'])->name('attendance.index');

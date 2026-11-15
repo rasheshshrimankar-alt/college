@@ -1,5 +1,6 @@
 ﻿<a href="{{ route('student.dashboard') }}" class="sidebar-item {{ request()->routeIs('student.dashboard') ? 'active' : '' }}"><i class="bi bi-speedometer2"></i><span class="item-text">Dashboard</span></a>
 <a href="{{ route('student.profile') }}" class="sidebar-item {{ request()->routeIs('student.profile') ? 'active' : '' }}"><i class="bi bi-person-circle"></i><span class="item-text">My Profile</span></a>
+<a href="{{ route('student.id-card') }}" class="sidebar-item {{ request()->routeIs('student.id-card') ? 'active' : '' }}"><i class="bi bi-person-vcard"></i><span class="item-text">Digital ID Card</span></a>
 <a href="{{ route('student.results.index') }}" class="sidebar-item {{ request()->routeIs('student.results*') ? 'active' : '' }}"><i class="bi bi-graph-up"></i><span class="item-text">My Results</span></a>
 <a href="{{ route('student.attendance.index') }}" class="sidebar-item {{ request()->routeIs('student.attendance*') ? 'active' : '' }}"><i class="bi bi-calendar-check"></i><span class="item-text">Attendance</span></a>
 <a href="{{ route('student.fees.index') }}" class="sidebar-item {{ request()->routeIs('student.fees*') ? 'active' : '' }}"><i class="bi bi-cash-stack"></i><span class="item-text">Fee Details</span></a>
