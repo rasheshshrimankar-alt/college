@@ -26,11 +26,16 @@ class AttendanceController extends Controller
     public function markForm(Request $request)
     {
         $faculty  = auth()->user()->faculty;
-        $subjects = Subject::where('faculty_id', $faculty->id)->get();
+        $subjects = $faculty->subjects()->where('subjects.status', 'active')->get();
 
         $subjectId = $request->subject_id ?? $subjects->first()?->id;
-        $students  = $subjectId
-            ? Student::where('course_id', Subject::find($subjectId)?->course_id)
+        $subject = $subjectId
+            ? $faculty->subjects()->where('subjects.id', $subjectId)->first()
+            : null;
+
+        $students = $subject
+            ? Student::where('course_id', $subject->course_id)
+                ->where('current_semester', $subject->semester)
                 ->where('status', 'active')
                 ->with('user')
                 ->get()
@@ -87,8 +92,9 @@ class AttendanceController extends Controller
         $students  = collect();
 
         if ($subjectId) {
-            $subject  = Subject::findOrFail($subjectId);
+            $subject = $faculty->subjects()->where('subjects.id', $subjectId)->firstOrFail();
             $students = Student::where('course_id', $subject->course_id)
+                ->where('current_semester', $subject->semester)
                 ->where('status', 'active')
                 ->with(['user', 'attendance' => fn($q) => $q->where('subject_id', $subjectId)])
                 ->get();
