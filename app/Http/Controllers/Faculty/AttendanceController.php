@@ -86,7 +86,7 @@ class AttendanceController extends Controller
     public function report(Request $request)
     {
         $faculty  = auth()->user()->faculty;
-        $subjects = Subject::where('faculty_id', $faculty->id)->get();
+        $subjects = $faculty->subjects()->where('subjects.status', 'active')->get();
 
         $subjectId = $request->subject_id;
         $students  = collect();
