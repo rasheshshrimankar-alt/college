@@ -75,7 +75,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
 });
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');\nRoute::post('/campus-assistant/reply', [CampusAssistantController::class, 'reply'])->middleware('auth')->name('campus-assistant.reply');
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
