@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AttendanceController as AdminAttendance;
 use App\Http\Controllers\Admin\ReportController as AdminReport;
 use App\Http\Controllers\Admin\SettingController as AdminSetting;
 use App\Http\Controllers\Admin\FormSubmissionController as AdminFormSubmission;
+use App\Http\Controllers\Admin\TimetableController as AdminTimetable;
 use App\Http\Controllers\Faculty\DashboardController as FacultyDashboard;
 use App\Http\Controllers\Faculty\AttendanceController as FacultyAttendance;
 use App\Http\Controllers\Faculty\ResultController as FacultyResult;
@@ -124,6 +125,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('/attendance', [AdminAttendance::class, 'index'])->name('attendance.index');
     Route::get('/attendance/report', [AdminAttendance::class, 'report'])->name('attendance.report');
     Route::get('/reports', [AdminReport::class, 'index'])->name('reports.index');
+    Route::get('/timetable', [AdminTimetable::class, 'index'])->name('timetable.index');
+    Route::post('/timetable', [AdminTimetable::class, 'store'])->name('timetable.store');
+    Route::delete('/timetable/{entry}', [AdminTimetable::class, 'destroy'])->name('timetable.destroy');
     Route::get('/settings', [AdminSetting::class, 'index'])->name('settings.index');
     Route::post('/settings', [AdminSetting::class, 'update'])->name('settings.update');
 });

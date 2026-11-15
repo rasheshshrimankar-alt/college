@@ -19,3 +19,5 @@
 <a href="{{ route('admin.settings.index') }}" class="sidebar-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><i class="bi bi-gear"></i><span class="item-text">Settings</span></a>
 
 <a href="{{ route('admin.form-submissions.index') }}" class="sidebar-item {{ request()->routeIs('admin.form-submissions.*') ? 'active' : '' }}"><i class="bi bi-file-earmark-spreadsheet"></i><span class="item-text">Form Submissions</span></a>
+
+<a href="{{ route('admin.timetable.index') }}" class="sidebar-item {{ request()->routeIs('admin.timetable.*') ? 'active' : '' }}"><i class="bi bi-calendar-week"></i><span class="item-text">Timetable</span></a>

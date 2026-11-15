@@ -13,6 +13,7 @@ use App\Models\StudyMaterial;
 use App\Models\LibraryBook;
 use App\Models\BookIssue;
 use App\Models\Scholarship;
+use App\Models\TimetableEntry;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -136,6 +137,13 @@ class DashboardController extends Controller
     public function timetable()
     {
         $student = auth()->user()->student->load('course', 'department');
-        return view('student.timetable', compact('student'));
+        $timetableEntries = TimetableEntry::where('course_id', $student->course_id)
+            ->where('semester', $student->current_semester)
+            ->with(['subject', 'faculty.user'])
+            ->orderByRaw("CASE day_of_week WHEN 'Monday' THEN 1 WHEN 'Tuesday' THEN 2 WHEN 'Wednesday' THEN 3 WHEN 'Thursday' THEN 4 WHEN 'Friday' THEN 5 WHEN 'Saturday' THEN 6 ELSE 7 END")
+            ->orderBy('start_time')
+            ->get();
+
+        return view('student.timetable', compact('student', 'timetableEntries'));
     }
 }
