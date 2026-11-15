@@ -9,6 +9,8 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class RegisterController extends Controller
 {
@@ -28,29 +30,46 @@ class RegisterController extends Controller
             'password'  => 'required|string|min:8|confirmed',
         ]);
 
-        $course = Course::with('department')->findOrFail($request->course_id);
+        try {
+            // Keep user and student creation atomic so a failed student insert cannot
+            // leave behind an account that causes a duplicate-email error on retry.
+            $user = DB::transaction(function () use ($request) {
+                $course = Course::with('department')->findOrFail($request->course_id);
 
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'phone'    => $request->phone,
-            'role'     => 'student',
-            'password' => Hash::make($request->password),
-            'status'   => 'active',
-        ]);
+                $user = User::create([
+                    'name'     => $request->name,
+                    'email'    => $request->email,
+                    'phone'    => $request->phone,
+                    'role'     => 'student',
+                    'password' => Hash::make($request->password),
+                    'status'   => 'active',
+                ]);
 
-        $studentId  = 'STU' . str_pad(Student::count() + 1, 4, '0', STR_PAD_LEFT);
-        $rollNumber = date('Y') . str_pad(Student::count() + 1, 4, '0', STR_PAD_LEFT);
+                $year = date('Y');
+                $uniqueSuffix = str_pad((string) $user->id, 6, '0', STR_PAD_LEFT);
 
-        Student::create([
-            'user_id'       => $user->id,
-            'course_id'     => $course->id,
-            'department_id' => $course->department_id,
-            'student_id'    => $studentId,
-            'roll_number'   => $rollNumber,
-            'batch_year'    => date('Y') . '-' . substr(date('Y') + 1, -2),
-            'status'        => 'active',
-        ]);
+                Student::create([
+                    'user_id'       => $user->id,
+                    'course_id'     => $course->id,
+                    'department_id' => $course->department_id,
+                    'student_id'    => 'STU' . $year . $uniqueSuffix,
+                    'roll_number'   => $year . $uniqueSuffix,
+                    'batch_year'    => $year . '-' . substr((string) ($year + 1), -2),
+                    'status'        => 'active',
+                ]);
+
+                return $user;
+            });
+        } catch (QueryException $exception) {
+            // Handle a duplicate email safely if two registration requests arrive together.
+            if (in_array((string) $exception->getCode(), ['23000', '23505'], true)) {
+                return back()
+                    ->withErrors(['email' => 'This email address is already registered. Please log in instead.'])
+                    ->withInput($request->except('password', 'password_confirmation'));
+            }
+
+            throw $exception;
+        }
 
         Auth::login($user);
         return redirect()->route('student.dashboard')
