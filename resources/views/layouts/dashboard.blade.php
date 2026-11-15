@@ -63,10 +63,10 @@
             </div>
         </div>
         <div class="sidebar-user">
-            <img src="{{ auth()->user()->avatar_url }}" alt="Avatar" class="sidebar-avatar">
+            <img src="{{ (auth()->user()?->avatar_url ?? 'https://ui-avatars.com/api/?name=Guest') }}" alt="Avatar" class="sidebar-avatar">
             <div class="sidebar-user-info">
-                <div class="sidebar-user-name">{{ Str::limit(auth()->user()->name, 20) }}</div>
-                <div class="sidebar-user-role">{{ ucfirst(auth()->user()->role) }}</div>
+                <div class="sidebar-user-name">{{ Str::limit(auth()->user()?->name ?? 'Guest', 20) }}</div>
+                <div class="sidebar-user-role">{{ ucfirst((auth()->user()?->role ?? 'guest')) }}</div>
             </div>
         </div>
         <nav class="sidebar-nav">
@@ -155,12 +155,12 @@
                 <!-- User Dropdown -->
                 <div class="dropdown">
                     <div class="nav-user-btn dropdown-toggle" data-bs-toggle="dropdown" style="cursor:pointer">
-                        <img src="{{ auth()->user()->avatar_url }}" alt="Avatar" class="nav-avatar">
-                        <span class="nav-user-name d-none d-md-block">{{ Str::limit(auth()->user()->name,15) }}</span>
+                        <img src="{{ (auth()->user()?->avatar_url ?? 'https://ui-avatars.com/api/?name=Guest') }}" alt="Avatar" class="nav-avatar">
+                        <span class="nav-user-name d-none d-md-block">{{ Str::limit(auth()->user()?->name ?? 'Guest',15) }}</span>
                         <i class="bi bi-chevron-down" style="font-size:.65rem;color:var(--text-muted)"></i>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:12px;min-width:200px;padding:.5rem">
-                        <li><h6 class="dropdown-header" style="font-size:.7rem;text-transform:uppercase;letter-spacing:.5px">{{ ucfirst(auth()->user()->role) }}</h6></li>
+                        <li><h6 class="dropdown-header" style="font-size:.7rem;text-transform:uppercase;letter-spacing:.5px">{{ ucfirst((auth()->user()?->role ?? 'guest')) }}</h6></li>
                         <li><a class="dropdown-item" href="#" style="border-radius:8px;font-size:.85rem"><i class="bi bi-person me-2"></i>My Profile</a></li>
                         <li><a class="dropdown-item" href="#" style="border-radius:8px;font-size:.85rem"><i class="bi bi-gear me-2"></i>Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
