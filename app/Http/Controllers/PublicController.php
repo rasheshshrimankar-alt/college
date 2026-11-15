@@ -13,6 +13,7 @@ use App\Models\Placement;
 use App\Models\Student;
 use App\Models\Admission;
 use App\Models\LibraryBook;
+use App\Models\FormSubmission;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
@@ -187,6 +188,14 @@ class PublicController extends Controller
             'message' => 'required|min:20',
         ]);
 
+        FormSubmission::create([
+            'form_type' => 'Contact',
+            'user_id' => auth()->id(),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'payload' => $request->only(['subject', 'message']),
+        ]);
+
         return back()->with('success', 'Thank you! Your message has been sent. We will respond within 24 hours.');
     }
 
@@ -216,6 +225,18 @@ class PublicController extends Controller
                 'status'             => 'pending',
             ]
         ));
+
+        FormSubmission::create([
+            'form_type' => 'Admission',
+            'user_id' => auth()->id(),
+            'name' => $request->input('applicant_name'),
+            'email' => $request->input('applicant_email'),
+            'phone' => $request->input('applicant_phone'),
+            'payload' => $request->only([
+                'course_id', 'previous_qualification', 'previous_percentage',
+                'guardian_name', 'guardian_phone', 'address',
+            ]),
+        ]);
 
         return back()->with('success', 'Application submitted successfully! We will contact you within 3-5 business days.');
     }
