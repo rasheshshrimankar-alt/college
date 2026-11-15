@@ -225,6 +225,7 @@ document.querySelectorAll('.sc-card').forEach((el,i)=>{
     el.style.animation = `slideUp .5s ease ${i*0.08}s both`;
 });
 </script>
+@include('partials.campus-assistant')
 @stack('scripts')
 </body>
 </html>
