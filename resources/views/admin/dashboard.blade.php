@@ -10,6 +10,7 @@
 <a href="{{ route('admin.departments.index') }}" class="sidebar-item {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}"><i class="bi bi-building"></i><span class="item-text">Departments</span></a>
 <a href="{{ route('admin.courses.index') }}" class="sidebar-item {{ request()->routeIs('admin.courses.*') ? 'active' : '' }}"><i class="bi bi-book"></i><span class="item-text">Courses</span></a>
 <a href="{{ route('admin.admissions.index') }}" class="sidebar-item {{ request()->routeIs('admin.admissions.*') ? 'active' : '' }}"><i class="bi bi-person-plus"></i><span class="item-text">Admissions</span><span class="item-badge">{{ $stats['pending_admissions'] }}</span></a>
+<a href="{{ route('admin.form-submissions.index') }}" class="sidebar-item {{ request()->routeIs('admin.form-submissions.*') ? 'active' : '' }}"><i class="bi bi-file-earmark-spreadsheet"></i><span class="item-text">Form Submissions</span></a>
 <a href="{{ route('admin.examinations.index') }}" class="sidebar-item {{ request()->routeIs('admin.examinations.*') ? 'active' : '' }}"><i class="bi bi-clipboard2-check"></i><span class="item-text">Examinations</span></a>
 <a href="{{ route('admin.results.index') }}" class="sidebar-item {{ request()->routeIs('admin.results.*') ? 'active' : '' }}"><i class="bi bi-graph-up"></i><span class="item-text">Results</span></a>
 <a href="{{ route('admin.fees.index') }}" class="sidebar-item {{ request()->routeIs('admin.fees.*') ? 'active' : '' }}"><i class="bi bi-cash-stack"></i><span class="item-text">Fees</span></a>
