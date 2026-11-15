@@ -8,6 +8,8 @@ use App\Models\Course;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class StudentController extends Controller
 {
@@ -51,31 +53,45 @@ class StudentController extends Controller
             'batch_year' => 'required',
         ]);
 
-        $course = Course::findOrFail($request->course_id);
+        try {
+            DB::transaction(function () use ($request) {
+                $course = Course::findOrFail($request->course_id);
+                $user = User::create([
+                    'name'     => $request->name,
+                    'email'    => $request->email,
+                    'phone'    => $request->phone,
+                    'role'     => 'student',
+                    'password' => Hash::make($request->password),
+                    'status'   => 'active',
+                ]);
 
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'phone'    => $request->phone,
-            'role'     => 'student',
-            'password' => Hash::make($request->password),
-            'status'   => 'active',
-        ]);
+                $year = date('Y');
+                $uniqueSuffix = str_pad((string) $user->id, 6, '0', STR_PAD_LEFT);
 
-        Student::create([
-            'user_id'        => $user->id,
-            'course_id'      => $course->id,
-            'department_id'  => $course->department_id,
-            'student_id'     => 'STU' . str_pad(Student::count(), 4, '0', STR_PAD_LEFT),
-            'roll_number'    => date('Y') . str_pad(Student::count(), 4, '0', STR_PAD_LEFT),
-            'batch_year'     => $request->batch_year,
-            'gender'         => $request->gender,
-            'phone'          => $request->phone,
-            'guardian_name'  => $request->guardian_name,
-            'guardian_phone' => $request->guardian_phone,
-            'blood_group'    => $request->blood_group,
-            'status'         => 'active',
-        ]);
+                Student::create([
+                    'user_id'        => $user->id,
+                    'course_id'      => $course->id,
+                    'department_id'  => $course->department_id,
+                    'student_id'     => 'STU' . $year . $uniqueSuffix,
+                    'roll_number'    => $year . $uniqueSuffix,
+                    'batch_year'     => $request->batch_year,
+                    'gender'         => $request->gender,
+                    'phone'          => $request->phone,
+                    'guardian_name'  => $request->guardian_name,
+                    'guardian_phone' => $request->guardian_phone,
+                    'blood_group'    => $request->blood_group,
+                    'status'         => 'active',
+                ]);
+            });
+        } catch (QueryException $exception) {
+            if (in_array((string) $exception->getCode(), ['23000', '23505'], true)) {
+                return back()
+                    ->withErrors(['email' => 'This email address is already registered.'])
+                    ->withInput($request->except('password'));
+            }
+
+            throw $exception;
+        }
 
         return redirect()->route('admin.students.index')->with('success', 'Student added successfully!');
     }
