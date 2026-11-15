@@ -1,10 +1,10 @@
 <?php
 
-namespace App\\Http\\Controllers;
+namespace App\Http\Controllers;
 
-use Illuminate\\Http\\Request;
-use Illuminate\\Support\\Facades\\Http;
-use Illuminate\\Support\\Facades\\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CampusAssistantController extends Controller
 {
@@ -47,7 +47,7 @@ class CampusAssistantController extends Controller
             }
 
             return response()->json(['reply' => trim($answer), 'mode' => 'ai']);
-        } catch (\\Throwable $exception) {
+        } catch (\Throwable $exception) {
             Log::warning('Campus assistant request failed', ['message' => $exception->getMessage()]);
             return response()->json(['reply' => 'The AI service is temporarily unavailable. Please try again shortly.'], 503);
         }
