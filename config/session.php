@@ -171,7 +171,8 @@ return [
     |
     */
 
-    // Render terminates TLS at its proxy; browser session cookies must be HTTPS-only.\n    'secure' => true,
+    // Render terminates TLS at its proxy; browser session cookies must be HTTPS-only.
+    'secure' => true,
 
     /*
     |--------------------------------------------------------------------------
