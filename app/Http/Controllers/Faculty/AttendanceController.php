@@ -12,7 +12,7 @@ class AttendanceController extends Controller
     public function index(Request $request)
     {
         $faculty  = auth()->user()->faculty;
-        $subjects = Subject::where('faculty_id', $faculty->id)->get();
+        $subjects = $faculty->subjects()->where('subjects.status', 'active')->get();
 
         $query = Attendance::where('faculty_id', $faculty->id)->with('student.user', 'subject');
         if ($request->subject_id) $query->where('subject_id', $request->subject_id);
@@ -48,11 +48,30 @@ class AttendanceController extends Controller
         ]);
 
         $faculty = auth()->user()->faculty;
+        abort_unless($faculty, 403);
+
+        $subject = $faculty->subjects()
+            ->where('subjects.id', $request->subject_id)
+            ->firstOrFail();
 
         foreach ($request->attendance as $studentId => $status) {
+            $belongsToSubject = Student::whereKey($studentId)
+                ->where('course_id', $subject->course_id)
+                ->where('current_semester', $subject->semester)
+                ->exists();
+
+            if (!$belongsToSubject) {
+                continue;
+            }
+
             Attendance::updateOrCreate(
-                ['student_id' => $studentId, 'subject_id' => $request->subject_id, 'date' => $request->date],
-                ['status' => $status, 'faculty_id' => $faculty->id]
+                ['student_id' => $studentId, 'subject_id' => $subject->id, 'date' => $request->date],
+                [
+                    'status' => $status,
+                    'faculty_id' => $faculty->id,
+                    'academic_year' => $subject->pivot->academic_year ?? (now()->year . '-' . (now()->year + 1)),
+                    'semester' => (int) ($subject->pivot->semester ?? $subject->semester),
+                ]
             );
         }
 
