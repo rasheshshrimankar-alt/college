@@ -18,7 +18,9 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'database'),
+    // Use file sessions on the single Render web instance to avoid stale/missing DB-session CSRF tokens.
+    // This deliberately overrides SESSION_DRIVER=database if it is set in the hosting environment.
+    'driver' => 'file',
 
     /*
     |--------------------------------------------------------------------------
