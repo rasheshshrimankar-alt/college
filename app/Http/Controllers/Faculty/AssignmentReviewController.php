@@ -1,13 +1,13 @@
 <?php
 
-namespace App\\Http\\Controllers\\Faculty;
+namespace App\Http\Controllers\Faculty;
 
-use App\\Http\\Controllers\\Controller;
-use App\\Models\\Assignment;
-use App\\Models\\AssignmentSubmission;
-use App\\Notifications\\AssignmentGraded;
-use Illuminate\\Http\\Request;
-use Illuminate\\Support\\Facades\\Storage;
+use App\Http\Controllers\Controller;
+use App\Models\Assignment;
+use App\Models\AssignmentSubmission;
+use App\Notifications\AssignmentGraded;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AssignmentReviewController extends Controller
 {
