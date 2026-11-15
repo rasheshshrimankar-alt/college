@@ -17,3 +17,5 @@
 <a href="{{ route('admin.complaints.index') }}" class="sidebar-item {{ request()->routeIs('admin.complaints.*') ? 'active' : '' }}"><i class="bi bi-chat-left-text"></i><span class="item-text">Complaints</span></a>
 <a href="{{ route('admin.reports.index') }}" class="sidebar-item {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}"><i class="bi bi-bar-chart-line"></i><span class="item-text">Reports</span></a>
 <a href="{{ route('admin.settings.index') }}" class="sidebar-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><i class="bi bi-gear"></i><span class="item-text">Settings</span></a>
+
+<a href="{{ route('admin.form-submissions.index') }}" class="sidebar-item {{ request()->routeIs('admin.form-submissions.*') ? 'active' : '' }}"><i class="bi bi-file-earmark-spreadsheet"></i><span class="item-text">Form Submissions</span></a>
