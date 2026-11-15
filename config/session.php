@@ -171,7 +171,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    // Render terminates TLS at its proxy; browser session cookies must be HTTPS-only.\n    'secure' => true,
 
     /*
     |--------------------------------------------------------------------------
