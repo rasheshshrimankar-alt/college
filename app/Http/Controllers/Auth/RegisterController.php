@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\FormSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,15 @@ class RegisterController extends Controller
 
             throw $exception;
         }
+
+        FormSubmission::create([
+            'form_type' => 'Registration',
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'payload' => ['course_id' => $request->input('course_id')],
+        ]);
 
         Auth::login($user);
         return redirect()->route('student.dashboard')
