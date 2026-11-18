@@ -88,6 +88,39 @@
     </div>
 </section>
 
+
+{{-- ═══ CAMPUS INTRO GALLERY ═══ --}}
+<section class="campus-showcase section-padding" aria-labelledby="campus-showcase-title">
+    <div class="container-xl">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-label">Discover SMART CAMPUS</div>
+            <h2 class="section-title" id="campus-showcase-title">A Place to <span class="gradient-text">Learn, Create & Grow</span></h2>
+            <p class="section-desc">Explore the spaces, people and experiences that make campus life inspiring.</p>
+        </div>
+        <div class="campus-gallery-grid">
+            <figure class="campus-photo campus-photo-featured" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Modern university campus building surrounded by greenery" loading="lazy">
+                <figcaption><span>Our Campus</span><strong>A welcoming place to belong</strong></figcaption>
+            </figure>
+            <figure class="campus-photo" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Students celebrating their college graduation" loading="lazy">
+                <figcaption><span>Student Success</span><strong>Celebrate every achievement</strong></figcaption>
+            </figure>
+            <figure class="campus-photo" data-aos="fade-up" data-aos-delay="180">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Bright collaborative classroom with students learning" loading="lazy">
+                <figcaption><span>Learning Spaces</span><strong>Ideas grow together</strong></figcaption>
+            </figure>
+            <figure class="campus-photo" data-aos="fade-up" data-aos-delay="260">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Students studying together in a campus learning space" loading="lazy">
+                <figcaption><span>Campus Community</span><strong>Learn with one another</strong></figcaption>
+            </figure>
+        </div>
+        <div class="text-center mt-4" data-aos="fade-up">
+            <a href="{{ route('gallery') }}" class="btn-outline-sc">Explore Campus Gallery <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+    </div>
+</section>
+
 {{-- ═══ MARQUEE COMPANIES ═══ --}}
 <div style="background:var(--bg-dark,#0F172A);padding:1.2rem 0;overflow:hidden;position:relative">
     <div style="display:flex;gap:3rem;animation:marquee 25s linear infinite;white-space:nowrap;width:max-content">
@@ -306,6 +339,63 @@
         </div>
     </div>
 </section>
+
+
+@push('styles')
+<style>
+.campus-gallery-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;grid-template-rows:220px 220px;gap:1rem}
+.campus-photo{position:relative;margin:0;overflow:hidden;border-radius:20px;min-height:200px;background:#dbeafe;box-shadow:0 12px 28px rgba(20,33,61,.10)}
+.campus-photo-featured{grid-row:span 2}
+.campus-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s ease}
+.campus-photo:hover img{transform:scale(1.06)}
+.campus-photo:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(9,22,38,.82))}
+.campus-photo figcaption{position:absolute;z-index:1;left:1.25rem;right:1.25rem;bottom:1.15rem;color:#fff;display:flex;flex-direction:column;gap:.25rem}
+.campus-photo figcaption span{font-size:.7rem;text-transform:uppercase;letter-spacing:1.3px;font-weight:800;color:#A7F3D0}
+.campus-photo figcaption strong{font-size:1.05rem;line-height:1.25}
+.campus-robot{position:fixed;z-index:90;right:22px;bottom:18px;width:148px;display:flex;flex-direction:column;align-items:center;pointer-events:none;filter:drop-shadow(0 10px 18px rgba(15,23,42,.14));animation:campusRobotFloat 3.4s ease-in-out infinite}
+.campus-robot-bubble{background:#fff;color:#14213D;border:1px solid #CCFBF1;border-radius:15px;padding:.65rem .85rem;text-align:center;box-shadow:0 8px 25px rgba(20,33,61,.12);display:flex;flex-direction:column;gap:.15rem;margin-bottom:-2px;position:relative}
+.campus-robot-bubble:after{content:"";position:absolute;left:calc(50% - 7px);bottom:-7px;width:12px;height:12px;background:#fff;border-right:1px solid #CCFBF1;border-bottom:1px solid #CCFBF1;transform:rotate(45deg)}
+.campus-robot-bubble strong{font-size:.76rem}
+.campus-robot-bubble span{font-size:.66rem;color:#64748B}
+.campus-robot-art{width:128px;height:142px}
+.campus-robot-art svg{width:100%;height:100%;overflow:visible}
+.robot-wave{transform-box:fill-box;transform-origin:10% 90%;animation:campusRobotWave 1.5s ease-in-out infinite}
+.robot-antenna{animation:campusRobotAntenna 1.8s ease-in-out infinite}
+.robot-eye{animation:campusRobotBlink 4s infinite}
+@keyframes campusRobotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes campusRobotWave{0%,100%{transform:rotate(0)}35%,70%{transform:rotate(-18deg)}}
+@keyframes campusRobotAntenna{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes campusRobotBlink{0%,45%,49%,100%{transform:scaleY(1)}47%{transform:scaleY(.12)}}
+@media(max-width:767.98px){.campus-gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:210px 170px 170px}.campus-photo-featured{grid-column:span 2;grid-row:auto}.campus-robot{right:8px;bottom:8px;transform:scale(.82);transform-origin:bottom right}.campus-robot-art{width:112px;height:125px}}
+@media(prefers-reduced-motion:reduce){.campus-robot,.robot-wave,.robot-antenna,.robot-eye,.campus-photo img{animation:none!important;transition:none!important}}
+</style>
+@endpush
+
+
+{{-- Floating animated campus guide --}}
+<div class="campus-robot" role="img" aria-label="Animated SMART CAMPUS robot guide">
+    <div class="campus-robot-bubble"><strong>Hi, future achiever!</strong><span>Welcome to SMART CAMPUS</span></div>
+    <div class="campus-robot-art" aria-hidden="true">
+        <svg viewBox="0 0 140 156" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="70" cy="146" rx="37" ry="7" fill="#0f766e" opacity=".16"/>
+            <path class="robot-antenna" d="M70 12V25" stroke="#E9B44C" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="70" cy="9" r="6" fill="#E9B44C"/>
+            <rect x="35" y="25" width="70" height="56" rx="19" fill="#F8FAFC" stroke="#0F766E" stroke-width="4"/>
+            <rect x="43" y="34" width="54" height="37" rx="13" fill="#14213D"/>
+            <ellipse cx="57" cy="51" rx="4" ry="6" fill="#5EEAD4" class="robot-eye"/>
+            <ellipse cx="83" cy="51" rx="4" ry="6" fill="#5EEAD4" class="robot-eye"/>
+            <path d="M61 61Q70 68 79 61" fill="none" stroke="#F4D28B" stroke-width="3" stroke-linecap="round"/>
+            <rect x="28" y="91" width="84" height="45" rx="15" fill="#0F766E"/>
+            <rect x="49" y="101" width="42" height="24" rx="8" fill="#CCFBF1"/>
+            <path d="M58 113h24" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
+            <path d="M35 99L22 111" stroke="#0F766E" stroke-width="10" stroke-linecap="round"/>
+            <path class="robot-wave" d="M105 99L120 82" stroke="#0F766E" stroke-width="10" stroke-linecap="round"/>
+            <path d="M52 135v7M88 135v7" stroke="#14213D" stroke-width="9" stroke-linecap="round"/>
+            <path d="M43 145h18M79 145h18" stroke="#14213D" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="70" cy="113" r="3" fill="#E9B44C"/>
+        </svg>
+    </div>
+</div>
 
 @push('scripts')
 <script>
