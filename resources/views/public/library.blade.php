@@ -1,4 +1,11 @@
-﻿@extends('layouts.dashboard')
-@section('title','Page')
-@section('sidebar')@include('admin.partials.sidebar')@endsection
-@section('content')<div class="page-header animate-fade-down"><div><h1 class="page-title">Page</h1></div></div><div class="dashboard-card animate-slide-up"><div class="card-body-sc text-center py-5"><div class="empty-icon mb-3"><i class="bi bi-gear"></i></div><h4>Coming Soon</h4><p style="color:var(--text-muted)">This module is being loaded.</p></div></div>@endsection
+@extends('layouts.public')
+@section('title','Library')
+@section('meta_description','Explore the SMART CAMPUS library collection and learning resources.')
+@section('content')
+<section style="padding:7rem 0 5rem"><div class="container-xl">
+<div class="section-header text-center"><div class="section-label">Knowledge Hub</div><h1 class="section-title">Campus <span class="gradient-text">Library</span></h1><p class="text-muted">Browse learning resources available to our campus community.</p></div>
+<div class="row g-3">@forelse($books as $book)<div class="col-sm-6 col-lg-4"><article class="sc-card h-100" style="padding:1.35rem"><div class="d-flex gap-3 align-items-start"><div style="width:68px;height:88px;flex:0 0 68px;border-radius:10px;background:var(--gradient-1);display:grid;place-items:center;color:white;font-size:1.8rem"><i class="bi bi-book-half"></i></div><div><span class="sc-badge badge-success">Available</span><h2 class="h6 mt-2 mb-1" style="font-weight:800">{{ $book->title }}</h2><p class="small text-muted mb-1">By {{ $book->author ?: 'Author not listed' }}</p><small class="text-muted">{{ $book->category ?: 'General collection' }}</small></div></div>@if($book->description)<p class="small text-muted mt-3 mb-2">{{ \Illuminate\Support\Str::limit($book->description,130) }}</p>@endif<div class="small text-muted border-top pt-2 mt-2"><i class="bi bi-journal-bookmark me-1"></i>{{ $book->available_copies }} of {{ $book->total_copies }} copies available</div></article></div>@empty<div class="col-12"><div class="sc-card text-center p-5"><i class="bi bi-book fs-1 text-muted"></i><h2 class="h5 mt-3">Library catalogue coming soon</h2><p class="text-muted mb-0">Available books will be listed here.</p></div></div>@endforelse</div>
+@if($books->hasPages())<div class="mt-4">{{ $books->links('pagination::bootstrap-5') }}</div>@endif
+<div class="sc-card mt-4 p-4 d-flex flex-wrap align-items-center justify-content-between gap-3"><div><h2 class="h5 mb-1">Already a SMART CAMPUS student?</h2><p class="small text-muted mb-0">Sign in to view your issued books and library account.</p></div><a href="{{ route('login') }}" class="btn-primary-sc">Student Login <i class="bi bi-arrow-right ms-1"></i></a></div>
+</div></section>
+@endsection
