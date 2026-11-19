@@ -11,3 +11,5 @@
 <a href="{{ route('student.scholarship') }}" class="sidebar-item {{ request()->routeIs('student.scholarship') ? 'active' : '' }}"><i class="bi bi-award"></i><span class="item-text">Scholarships</span></a>
 <a href="{{ route('student.timetable') }}" class="sidebar-item {{ request()->routeIs('student.timetable') ? 'active' : '' }}"><i class="bi bi-clock-history"></i><span class="item-text">Timetable</span></a>
 <a href="{{ route('student.complaints.index') }}" class="sidebar-item {{ request()->routeIs('student.complaints.*') ? 'active' : '' }}"><i class="bi bi-chat-left-text"></i><span class="item-text">Complaints</span></a>
+
+<a href="{{ route('student.quiz.index') }}" class="sidebar-item {{ request()->routeIs('student.quiz.*') ? 'active' : '' }}"><i class="bi bi-stars"></i><span class="item-text">AI Quiz Generator</span></a>
