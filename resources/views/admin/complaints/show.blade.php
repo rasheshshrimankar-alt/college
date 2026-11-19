@@ -21,7 +21,7 @@
 </div>
 @else
 <form method="POST" action="{{ route('admin.complaints.respond',$complaint) }}" data-validate>@csrf
-<div class="sc-form-group"><label class="sc-label">Add Response</label><textarea name="response" class="sc-input" rows="4" required placeholder="Enter your response..."></textarea></div>
+<div class="sc-form-group"><label class="sc-label">Add Response</label><textarea name="admin_response" class="sc-input" rows="4" required placeholder="Enter your response..."></textarea></div>
 <div class="d-flex gap-2">
 <button type="submit" class="btn-primary-sc"><i class="bi bi-send me-2"></i>Send Response</button>
 <select name="status" class="sc-select" style="width:auto" form="this.closest('form')"><option value="in_progress">Mark In Progress</option><option value="resolved">Mark Resolved</option></select>
