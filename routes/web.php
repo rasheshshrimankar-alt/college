@@ -41,6 +41,7 @@ use App\Http\Controllers\Student\FeeController as StudentFee;
 
 use App\Http\Controllers\Student\AssignmentSubmissionController;
 use App\Http\Controllers\Student\DigitalIdController;
+use App\Http\Controllers\Student\QuizGeneratorController;
 use App\Http\Controllers\Faculty\AssignmentReviewController;
 use App\Http\Controllers\Faculty\QrAttendanceController;
 
@@ -185,4 +186,6 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'student'])->gro
     Route::get('/library', [StudentDashboard::class, 'library'])->name('library');
     Route::get('/scholarship', [StudentDashboard::class, 'scholarship'])->name('scholarship');
     Route::get('/timetable', [StudentDashboard::class, 'timetable'])->name('timetable');
+    Route::get('/ai-quiz', [QuizGeneratorController::class, 'index'])->name('quiz.index');
+    Route::post('/ai-quiz', [QuizGeneratorController::class, 'generate'])->middleware('throttle:10,1')->name('quiz.generate');
 });
