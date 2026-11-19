@@ -5,6 +5,8 @@
 @section('sidebar')@include('student.partials.sidebar')@endsection
 
 @section('content')
+@if(session('error'))<div class="alert alert-warning alert-dismissible fade show" role="alert">{{ session('error') }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>@endif
+@if($errors->any())<div class="alert alert-danger" role="alert"><strong>Please correct these details:</strong><ul class="mb-0 mt-2">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
 <div class="page-header animate-fade-down">
     <div>
         <h1 class="page-title"><i class="bi bi-stars me-2"></i>AI Quiz Generator</h1>
